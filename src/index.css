@@ -1,0 +1,10 @@
+body { margin: 0; font-family: system-ui, sans-serif; background: #111; color: #eee; }
+.app { max-width: 1200px; margin: 0 auto; padding: 24px; }
+.layout { display: grid; grid-template-columns: 280px 1fr; gap: 24px; align-items: start; }
+.controls { display: flex; flex-direction: column; gap: 16px; }
+.controls label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; }
+textarea { padding: 8px; border-radius: 6px; border: 1px solid #444; background: #1c1c1c; color: inherit; }
+button { padding: 10px; border: 0; border-radius: 6px; background: #e11d48; color: #fff; font-weight: 600; cursor: pointer; }
+button:disabled { opacity: .4; cursor: not-allowed; }
+.preview { width: 100%; height: auto; border-radius: 8px; border: 1px solid #333; }
+@media (max-width: 800px) { .layout { grid-template-columns: 1fr; } }
