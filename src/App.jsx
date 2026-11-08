@@ -10,7 +10,7 @@ function drawThumbnail(canvas, image, { text, fontSize, color }) {
   ctx.fillRect(0, 0, WIDTH, HEIGHT)
 
   if (image) {
-    // "cover": llena el lienzo recortando lo que sobre
+    // "cover": fill the canvas, cropping any overflow
     const scale = Math.max(WIDTH / image.width, HEIGHT / image.height)
     const w = image.width * scale
     const h = image.height * scale
@@ -51,7 +51,7 @@ export default function App() {
     const file = e.target.files?.[0]
     if (!file) return
     if (!file.type.startsWith('image/')) {
-      alert('Por favor selecciona un archivo de imagen.')
+      alert('Please select an image file.')
       return
     }
     const url = URL.createObjectURL(file)
@@ -62,7 +62,7 @@ export default function App() {
     }
     img.onerror = () => {
       URL.revokeObjectURL(url)
-      alert('No se pudo cargar la imagen.')
+      alert('Could not load the image.')
     }
     img.src = url
   }
@@ -72,7 +72,7 @@ export default function App() {
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = 'miniatura.png'
+      a.download = 'thumbnail.png'
       a.click()
       URL.revokeObjectURL(url)
     }, 'image/png')
@@ -80,24 +80,24 @@ export default function App() {
 
   return (
     <main className="app">
-      <h1>Creador de miniaturas</h1>
+      <h1>Thumbnail Maker</h1>
       <div className="layout">
         <section className="controls">
           <label>
-            Tu foto
+            Your photo
             <input type="file" accept="image/*" onChange={handleFile} />
           </label>
           <label>
-            Texto
+            Text
             <textarea
               rows={3}
               value={text}
               onChange={(e) => setText(e.target.value)}
-              placeholder="Escribe el texto de tu miniatura"
+              placeholder="Type your thumbnail text"
             />
           </label>
           <label>
-            Tamaño: {fontSize}px
+            Size: {fontSize}px
             <input
               type="range"
               min="40"
@@ -111,7 +111,7 @@ export default function App() {
             <input type="color" value={color} onChange={(e) => setColor(e.target.value)} />
           </label>
           <button onClick={handleDownload} disabled={!image}>
-            Descargar PNG
+            Download PNG
           </button>
         </section>
         <canvas ref={canvasRef} width={WIDTH} height={HEIGHT} className="preview" />

@@ -1,16 +1,16 @@
 # factory-software — Thumbnail Maker
 
-Editor de miniaturas de YouTube **sin IA**: subes tu foto, escribes el texto
-y descargas una miniatura de 1280×720.
+A YouTube thumbnail editor with **no AI**: upload your photo, add your text,
+and download a 1280×720 thumbnail.
 
-## Uso
+## Usage
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
-## Capacidad actual
-- Subir una imagen (se recorta/ajusta a 16:9).
-- Añadir texto con tamaño y color configurables.
-- Descargar el resultado como PNG.
+## Current capabilities
+- Upload an image (fitted to 16:9, cropping any overflow).
+- Add text with configurable size and color.
+- Download the result as a PNG.
