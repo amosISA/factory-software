@@ -2,6 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 
 const WIDTH = 1280
 const HEIGHT = 720
+const TODAY = new Date().toLocaleDateString('en-GB', {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+})
+const COLORS = ['#ffffff', '#fde047', '#f472b6', '#7dd3fc', '#86efac', '#111111']
 
 // Split text into lines that fit within maxWidth (breaks on spaces, and
 // on characters for single words wider than the canvas).
@@ -113,41 +119,64 @@ export default function App() {
 
   return (
     <main className="app">
-      <h1>Thumbnail Maker</h1>
+      <header className="top">
+        <div>
+          <p className="date">{TODAY}</p>
+          <h1>Make your thumbnail</h1>
+        </div>
+        <button className="btn btn-pink" onClick={handleDownload} disabled={!image}>
+          ↓ Download PNG
+        </button>
+      </header>
+
+      <div className="banner">
+        <strong>No AI, just you.</strong>
+        <span>Upload your photo, add your text. Exports at 1280×720, YouTube&apos;s size.</span>
+      </div>
+
       <div className="layout">
-        <section className="controls">
-          <label>
-            Your photo
+        <section className="card controls">
+          <h2>Your photo</h2>
+          <label className="file">
             <input type="file" accept="image/*" onChange={handleFile} />
           </label>
-          <label>
-            Text
-            <textarea
-              rows={3}
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              placeholder="Type your thumbnail text"
-            />
-          </label>
-          <label>
-            Size: {fontSize}px
-            <input
-              type="range"
-              min="40"
-              max="260"
-              value={fontSize}
-              onChange={(e) => setFontSize(Number(e.target.value))}
-            />
-          </label>
-          <label>
-            Color
+
+          <h2>Text</h2>
+          <textarea
+            rows={3}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="Type your thumbnail text"
+          />
+
+          <h2>Size · {fontSize}px</h2>
+          <input
+            type="range"
+            min="40"
+            max="260"
+            value={fontSize}
+            onChange={(e) => setFontSize(Number(e.target.value))}
+          />
+
+          <h2>Color</h2>
+          <div className="chips">
+            {COLORS.map((c) => (
+              <button
+                key={c}
+                className={`chip ${c === color ? 'active' : ''}`}
+                style={{ background: c }}
+                onClick={() => setColor(c)}
+                aria-label={`Text color ${c}`}
+              />
+            ))}
             <input type="color" value={color} onChange={(e) => setColor(e.target.value)} />
-          </label>
-          <button onClick={handleDownload} disabled={!image}>
-            Download PNG
-          </button>
+          </div>
         </section>
-        <canvas ref={canvasRef} width={WIDTH} height={HEIGHT} className="preview" />
+
+        <section className="card preview-card">
+          <h2>Preview</h2>
+          <canvas ref={canvasRef} width={WIDTH} height={HEIGHT} className="preview" />
+        </section>
       </div>
     </main>
   )
